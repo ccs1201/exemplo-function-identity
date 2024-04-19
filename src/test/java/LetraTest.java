@@ -21,12 +21,16 @@ public class LetraTest {
         return charList;
     }
 
+    private static char transformarEmMaiuscula(Letra letra) {
+        return letra.getLetra().toString().toUpperCase().charAt(0);
+    }
+
     @Test
     public void testComFor() {
 
         Map<Letra, Character> mapLetras = new HashMap<>();
 
-        getLetras().forEach(letra -> mapLetras.put(letra, letra.getLetra().toString().toUpperCase().charAt(0)));
+        getLetras().forEach(letra -> mapLetras.put(letra, transformarEmMaiuscula(letra)));
 
         assertEquals(mapLetras.get(new Letra('a')), Character.valueOf('A'));
         assertEquals(mapLetras.get(new Letra('z')), Character.valueOf('Z'));
@@ -37,7 +41,7 @@ public class LetraTest {
 
         Map<Letra, Character> mapLetras = getLetras()
                 .stream()
-                .collect(Collectors.toMap(Function.identity(), letra -> letra.getLetra().toString().toUpperCase().charAt(0)));
+                .collect(Collectors.toMap(Function.identity(), LetraTest::transformarEmMaiuscula));
 
         assertEquals(mapLetras.get(new Letra('a')), Character.valueOf('A'));
         assertEquals(mapLetras.get(new Letra('z')), Character.valueOf('Z'));
